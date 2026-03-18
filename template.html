@@ -4,137 +4,281 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
     <style>
-        :root { 
-            --accent: #004d40; 
-            --retro-bg: #0a0a0a;
-            --retro-green: #00ff41; 
-            --text-main: #333;
-            --bg-main: #fdfdfd;
+        :root {
+            --bg-main: #f4f4ef;
+            --bg-card: #fffdf7;
+            --text-main: #1f2023;
+            --text-muted: #5a5d66;
+            --accent: #0f5b91;
+            --accent-soft: #dcecf8;
+            --line: #d9d7cf;
+            --headline: #141518;
         }
 
-        /* Smooth scrolling for the nav links */
-        html { scroll-behavior: smooth; }
-
-        body { 
-            font-family: -apple-system, system-ui, sans-serif; 
-            line-height: 1.6; 
-            color: var(--text-main); 
-            max-width: 950px; 
-            margin: auto; 
-            padding: 0 20px 40px 20px; 
-            background: var(--bg-main); 
+        * {
+            box-sizing: border-box;
         }
 
-        /* Sticky Navigation Bar */
+        body {
+            margin: 0;
+            font-family: "Source Sans 3", "Segoe UI", sans-serif;
+            line-height: 1.65;
+            color: var(--text-main);
+            background:
+                radial-gradient(circle at 15% 10%, #fff8dd 0, rgba(255, 248, 221, 0) 30%),
+                radial-gradient(circle at 88% 25%, #dff0fc 0, rgba(223, 240, 252, 0) 40%),
+                var(--bg-main);
+        }
+
+        .site-shell {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 24px 20px 64px;
+        }
+
         nav {
             position: sticky;
             top: 0;
-            background: rgba(253, 253, 253, 0.95);
-            padding: 15px 0;
-            border-bottom: 2px solid var(--accent);
+            background: rgba(244, 244, 239, 0.86);
+            border-bottom: 1px solid var(--line);
+            backdrop-filter: blur(8px);
             z-index: 100;
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            backdrop-filter: blur(5px);
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 10px 0;
         }
+
         nav a {
-            color: var(--accent);
+            color: var(--text-main);
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            font-size: 0.95rem;
+            padding: 7px 12px;
+            border-radius: 999px;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        nav a:hover {
+            background: #ebe9df;
+        }
+
+        nav a.active {
+            background: var(--accent);
+            color: #ffffff;
+        }
+
+        header {
+            margin: 42px 0 30px;
+            display: grid;
+            gap: 10px;
+        }
+
+        .site-kicker {
             text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9em;
-            padding: 5px 10px;
-            border-radius: 4px;
-            transition: background 0.2s;
+            letter-spacing: 0.14em;
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            margin: 0;
         }
-        nav a:hover { background: #e0f2f1; }
 
-        header { margin: 60px 0 50px 0; text-align: center; }
-        h1 { font-size: 2.5em; margin-bottom: 5px; color: var(--accent); }
-        h2 { border-bottom: 2px solid var(--accent); padding-bottom: 10px; margin-top: 50px; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
-
-        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        
-        /* Professional Repo Cards */
-        .pro-card {
-            background: white;
-            padding: 20px;
-            border-radius: 4px;
-            border-left: 4px solid #1976d2; /* Science Blue */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            font-family: monospace;
-            font-size: 1.1em;
+        h1 {
+            margin: 0;
+            color: var(--headline);
+            font-family: "Merriweather", Georgia, serif;
+            font-size: clamp(2.1rem, 4vw, 3.2rem);
+            line-height: 1.14;
         }
-        .pro-card a { color: #1976d2; text-decoration: none; font-weight: bold; }
-        .pro-card a:hover { text-decoration: underline; }
 
-        /* Retro Cards */
-        .game-card { 
-            background: var(--retro-bg); 
-            color: var(--retro-green); 
-            padding: 25px; 
-            border-radius: 4px; 
-            font-family: 'Courier New', Courier, monospace; 
-            border: 1px solid var(--retro-green);
-            box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
-            position: relative;
-            overflow: hidden;
+        .subtitle {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 1.06rem;
         }
-        .game-card::before {
-            content: " "; display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-            z-index: 2; background-size: 100% 3px, 3px 100%; pointer-events: none;
-        }
-        .game-card h3 { color: white; margin-top: 0; border-bottom: 1px solid #333; padding-bottom: 5px; font-size: 1.2em; }
-        .game-card a { color: var(--retro-green); font-weight: bold; text-decoration: none; border: 1px solid var(--retro-green); padding: 5px 10px; display: inline-block; margin-top: 10px; }
-        .game-card a:hover { background: var(--retro-green); color: black; }
 
-        .pub-card { background: white; padding: 20px; margin-bottom: 15px; border-left: 5px solid var(--accent); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .year-label { font-weight: 900; font-size: 1.5em; margin: 40px 0 20px 0; display: block; color: #bbb; border-bottom: 1px solid #eee; }
+        main {
+            background: var(--bg-card);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 14px 38px rgba(0, 0, 0, 0.05);
+        }
+
+        .page-header {
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .page-header h2 {
+            margin: 0;
+            font-family: "Merriweather", Georgia, serif;
+            color: var(--headline);
+            font-size: clamp(1.45rem, 2.8vw, 2rem);
+        }
+
+        .page-header p {
+            margin: 8px 0 0;
+            color: var(--text-muted);
+            max-width: 72ch;
+        }
+
+        .content h2,
+        .content h3 {
+            font-family: "Merriweather", Georgia, serif;
+            color: var(--headline);
+            margin-top: 28px;
+        }
+
+        .content p,
+        .content li {
+            max-width: 76ch;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .project-card,
+        .pub-card {
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 16px;
+            background: #fff;
+        }
+
+        .project-card.personal {
+            border-left: 5px solid #cf7548;
+        }
+
+        .project-card:not(.personal) {
+            border-left: 5px solid var(--accent);
+        }
+
+        .project-card h3,
+        .card-title {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 1.06rem;
+            font-family: "Merriweather", Georgia, serif;
+            color: var(--headline);
+        }
+
+        .card-meta {
+            margin: 0 0 6px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        .card-submeta {
+            margin: 0 0 10px;
+            color: var(--text-muted);
+            font-size: 0.92rem;
+        }
+
+        .card-body {
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        .year-label {
+            margin: 26px 0 12px;
+            font-family: "Merriweather", Georgia, serif;
+            color: var(--accent);
+            font-size: 1.3rem;
+        }
+
+        .btn-link {
+            display: inline-block;
+            margin-top: 6px;
+            text-decoration: none;
+            color: var(--accent);
+            font-weight: 700;
+            border-bottom: 2px solid var(--accent-soft);
+        }
+
+        .btn-link:hover {
+            border-bottom-color: var(--accent);
+        }
+
+        .tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            background: var(--accent-soft);
+            color: #164a71;
+            border-radius: 999px;
+            padding: 2px 10px;
+            margin: 0 6px 6px 0;
+        }
+
+        .note {
+            padding: 10px 12px;
+            border-radius: 10px;
+            background: #f2f7fb;
+            border: 1px solid #d6e7f5;
+            color: #214d72;
+        }
+
+        footer {
+            margin-top: 28px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 700px) {
+            .site-shell {
+                padding: 14px 12px 40px;
+            }
+
+            main {
+                padding: 18px;
+            }
+
+            nav {
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="site-shell">
+        <nav>
+            {% for item in nav_items %}
+            <a href="{{ item.href }}" class="{% if item.slug == active_page %}active{% endif %}">{{ item.label }}</a>
+            {% endfor %}
+        </nav>
 
-    <nav>
-        <a href="#professional">Professional Software</a>
-        <a href="#retro">Retro-Computing</a>
-        <a href="#publications">Publications</a>
-    </nav>
+        <header>
+            <p class="site-kicker">Academic Portfolio</p>
+            <h1>{{ site_name }}</h1>
+            <p class="subtitle">{{ site_subtitle }}</p>
+        </header>
 
-    <header>
-        <h1>Jason Rowe</h1>
-        <p><strong>Professor of Physics & Astronomy, Bishop's University</strong></p>
-    </header>
+        <main>
+            <div class="page-header">
+                <h2>{{ page_title }}</h2>
+                {% if page_intro %}
+                <p>{{ page_intro }}</p>
+                {% endif %}
+            </div>
+            <div class="content">
+                {{ content_html | safe }}
+            </div>
+        </main>
 
-    <section id="professional">
-        <h2>Professional Software & Tools</h2>
-        <div class="projects-grid">
-            {{ pro_html | safe }}
-        </div>
-    </section>
-
-    <section id="retro">
-        <h2>Retro-Computing & Games</h2>
-        <div class="projects-grid">
-            {{ retro_html | safe }}
-        </div>
-    </section>
-
-    <section id="publications">
-        <h2>Academic Publications</h2>
-        {{ pubs_html | safe }}
-    </section>
-
-    <footer style="margin-top: 100px; text-align: center; font-size: 0.8em; color: #999;">
-        <p>&copy; 2026 Jason Rowe.</p>
-    </footer>
-
+        <footer>
+            <p>&copy; {{ current_year }} {{ site_name }}.</p>
+        </footer>
+    </div>
 </body>
 </html>

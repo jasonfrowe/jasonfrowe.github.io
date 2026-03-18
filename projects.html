@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Jason Rowe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --bg-main: #f4f4ef;
+            --bg-card: #fffdf7;
+            --text-main: #1f2023;
+            --text-muted: #5a5d66;
+            --accent: #0f5b91;
+            --accent-soft: #dcecf8;
+            --line: #d9d7cf;
+            --headline: #141518;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Source Sans 3", "Segoe UI", sans-serif;
+            line-height: 1.65;
+            color: var(--text-main);
+            background:
+                radial-gradient(circle at 15% 10%, #fff8dd 0, rgba(255, 248, 221, 0) 30%),
+                radial-gradient(circle at 88% 25%, #dff0fc 0, rgba(223, 240, 252, 0) 40%),
+                var(--bg-main);
+        }
+
+        .site-shell {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 24px 20px 64px;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(244, 244, 239, 0.86);
+            border-bottom: 1px solid var(--line);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            font-size: 0.95rem;
+            padding: 7px 12px;
+            border-radius: 999px;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        nav a:hover {
+            background: #ebe9df;
+        }
+
+        nav a.active {
+            background: var(--accent);
+            color: #ffffff;
+        }
+
+        header {
+            margin: 42px 0 30px;
+            display: grid;
+            gap: 10px;
+        }
+
+        .site-kicker {
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        h1 {
+            margin: 0;
+            color: var(--headline);
+            font-family: "Merriweather", Georgia, serif;
+            font-size: clamp(2.1rem, 4vw, 3.2rem);
+            line-height: 1.14;
+        }
+
+        .subtitle {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 1.06rem;
+        }
+
+        main {
+            background: var(--bg-card);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 14px 38px rgba(0, 0, 0, 0.05);
+        }
+
+        .page-header {
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .page-header h2 {
+            margin: 0;
+            font-family: "Merriweather", Georgia, serif;
+            color: var(--headline);
+            font-size: clamp(1.45rem, 2.8vw, 2rem);
+        }
+
+        .page-header p {
+            margin: 8px 0 0;
+            color: var(--text-muted);
+            max-width: 72ch;
+        }
+
+        .content h2,
+        .content h3 {
+            font-family: "Merriweather", Georgia, serif;
+            color: var(--headline);
+            margin-top: 28px;
+        }
+
+        .content p,
+        .content li {
+            max-width: 76ch;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .project-card,
+        .pub-card {
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 16px;
+            background: #fff;
+        }
+
+        .project-card.personal {
+            border-left: 5px solid #cf7548;
+        }
+
+        .project-card:not(.personal) {
+            border-left: 5px solid var(--accent);
+        }
+
+        .project-card h3,
+        .card-title {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 1.06rem;
+            font-family: "Merriweather", Georgia, serif;
+            color: var(--headline);
+        }
+
+        .card-meta {
+            margin: 0 0 6px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        .card-submeta {
+            margin: 0 0 10px;
+            color: var(--text-muted);
+            font-size: 0.92rem;
+        }
+
+        .card-body {
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        .year-label {
+            margin: 26px 0 12px;
+            font-family: "Merriweather", Georgia, serif;
+            color: var(--accent);
+            font-size: 1.3rem;
+        }
+
+        .btn-link {
+            display: inline-block;
+            margin-top: 6px;
+            text-decoration: none;
+            color: var(--accent);
+            font-weight: 700;
+            border-bottom: 2px solid var(--accent-soft);
+        }
+
+        .btn-link:hover {
+            border-bottom-color: var(--accent);
+        }
+
+        .tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            background: var(--accent-soft);
+            color: #164a71;
+            border-radius: 999px;
+            padding: 2px 10px;
+            margin: 0 6px 6px 0;
+        }
+
+        .note {
+            padding: 10px 12px;
+            border-radius: 10px;
+            background: #f2f7fb;
+            border: 1px solid #d6e7f5;
+            color: #214d72;
+        }
+
+        footer {
+            margin-top: 28px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 700px) {
+            .site-shell {
+                padding: 14px 12px 40px;
+            }
+
+            main {
+                padding: 18px;
+            }
+
+            nav {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="site-shell">
+        <nav>
+            
+            <a href="index.html" class="">Home</a>
+            
+            <a href="publications.html" class="">Publications</a>
+            
+            <a href="projects.html" class="active">Projects</a>
+            
+            <a href="cv.html" class="">CV</a>
+            
+            <a href="talks-teaching.html" class="">Talks & Teaching</a>
+            
+            <a href="contact.html" class="">Contact</a>
+            
+        </nav>
+
+        <header>
+            <p class="site-kicker">Academic Portfolio</p>
+            <h1>Jason Rowe</h1>
+            <p class="subtitle">Professor of Physics & Astronomy, Bishop's University</p>
+        </header>
+
+        <main>
+            <div class="page-header">
+                <h2>Projects</h2>
+                
+                <p>Selected software repositories and personal engineering projects.</p>
+                
+            </div>
+            <div class="content">
+                
+    <section>
+        <h2>Professional Software</h2>
+        <div class='projects-grid'>
+        <article class='project-card'>
+            <h3>bls_cuda</h3>
+            <p>Professional software repository.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/bls_cuda' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card'>
+            <h3>Pandora_AUX_Tools</h3>
+            <p>Professional software repository.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/Pandora_AUX_Tools' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card'>
+            <h3>Kepler_TTV</h3>
+            <p>Professional software repository.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/Kepler_TTV' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card'>
+            <h3>poet</h3>
+            <p>Professional software repository.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/poet' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card'>
+            <h3>neossat</h3>
+            <p>Professional software repository.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/neossat' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card'>
+            <h3>autotransit</h3>
+            <p>Professional software repository.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/autotransit' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card'>
+            <h3>Kepler</h3>
+            <p>Professional software repository.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/Kepler' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card'>
+            <h3>jwst</h3>
+            <p>Professional software repository.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/jwst' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card'>
+            <h3>Neptune</h3>
+            <p>Professional software repository.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/Neptune' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card'>
+            <h3>MOST</h3>
+            <p>Professional software repository.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/MOST' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card'>
+            <h3>JWSTNIRISS</h3>
+            <p>Professional software repository.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/JWSTNIRISS' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card'>
+            <h3>gprocess</h3>
+            <p>Professional software repository.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/gprocess' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card'>
+            <h3>home_monitor</h3>
+            <p>Professional software repository.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/home_monitor' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        </div>
+    </section>
+    <section>
+        <h2>Personal and Retro-Computing</h2>
+        <div class='projects-grid'>
+        <article class='project-card personal'>
+            <h3>Astrowing</h3>
+            <p>Personal or retro-computing project.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/Astrowing' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card personal'>
+            <h3>RPMegaFighter</h3>
+            <p>Personal or retro-computing project.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/RPMegaFighter' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card personal'>
+            <h3>RPTracker</h3>
+            <p>Personal or retro-computing project.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/RPTracker' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card personal'>
+            <h3>RPMegaChopper</h3>
+            <p>Personal or retro-computing project.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/RPMegaChopper' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card personal'>
+            <h3>Atari7800_AstroCart</h3>
+            <p>Personal or retro-computing project.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/Atari7800_AstroCart' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card personal'>
+            <h3>RPMegaRacer</h3>
+            <p>Personal or retro-computing project.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/RPMegaRacer' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card personal'>
+            <h3>MySegaGame</h3>
+            <p>Personal or retro-computing project.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/MySegaGame' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card personal'>
+            <h3>RP6502-Cosmic-Arc</h3>
+            <p>Personal or retro-computing project.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/RP6502-Cosmic-Arc' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card personal'>
+            <h3>RP6502_OPL2</h3>
+            <p>Personal or retro-computing project.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/RP6502_OPL2' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card personal'>
+            <h3>RPGalaxy</h3>
+            <p>Personal or retro-computing project.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/RPGalaxy' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card personal'>
+            <h3>PicoOPL2</h3>
+            <p>Personal or retro-computing project.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/PicoOPL2' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card personal'>
+            <h3>Atari7800_ROM_Emulator</h3>
+            <p>Personal or retro-computing project.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/Atari7800_ROM_Emulator' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card personal'>
+            <h3>RP6502_OPL2_FPGA</h3>
+            <p>Personal or retro-computing project.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/RP6502_OPL2_FPGA' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card personal'>
+            <h3>pico_jukebox</h3>
+            <p>Personal or retro-computing project.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/pico_jukebox' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card personal'>
+            <h3>fpga_opl2</h3>
+            <p>Personal or retro-computing project.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/fpga_opl2' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card personal'>
+            <h3>2600MultiCart</h3>
+            <p>Personal or retro-computing project.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/2600MultiCart' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        
+        <article class='project-card personal'>
+            <h3>midisequencer</h3>
+            <p>Personal or retro-computing project.</p>
+            <p><a class='btn-link' href='https://github.com/jasonfrowe/midisequencer' target='_blank' rel='noopener noreferrer'>Open on GitHub</a></p>
+        </article>
+        <article class='project-card personal'><h3>Astro Wing Starfighter</h3><p><span class='tag'>Atari</span><span class='tag'>6502</span><span class='tag'>Homebrew</span></p><p><a class='btn-link' href='https://github.com/jasonfrowe/AstroWing' target='_blank' rel='noopener noreferrer'>Open Project</a></p></article></div>
+    </section>
+    
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Jason Rowe.</p>
+        </footer>
+    </div>
+</body>
+</html>
